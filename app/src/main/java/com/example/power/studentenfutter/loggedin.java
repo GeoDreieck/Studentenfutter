@@ -27,10 +27,5 @@ public class loggedin extends AppCompatActivity {
         Intent intent = new Intent(this, Paypal.class);
         startActivity(intent);
     }
-    public void screenChangesWarenkorb(View view)
-    {
-        Intent intent = new Intent(this, Warenkorb.class);
-        startActivity(intent);
-    }
-
+  
 }
