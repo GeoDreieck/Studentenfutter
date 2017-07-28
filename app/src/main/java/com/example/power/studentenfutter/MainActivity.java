@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void screenChangeGeschaeft(View view)
     {
-        Intent intent = new Intent(this, loggedin.class);
+        Intent intent = new Intent(this, Geschaefte.class);
         startActivity(intent);
     }
 }
