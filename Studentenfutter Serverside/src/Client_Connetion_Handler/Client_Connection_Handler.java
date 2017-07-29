@@ -11,15 +11,16 @@ import java.util.List;
 
 import Server_Logic.*;
 
-public class Client_Connection_Handler
+public class Client_Connection_Handler implements Client_Connection_Handler_Interface
 {
 	//attributes
 	final String host = "HOSTADRESS";
 	final int portNumber = 81;
 	Server_Logic_Interface sli;
 	
-	public Client_Connection_Handler() 
+	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) 
 	{
+		sli = server_logic_interface;
 		System.out.println("Creating socket to '" + host + "' on port " + portNumber);
 		try {
 			HandleClientCalls();
@@ -35,7 +36,7 @@ public class Client_Connection_Handler
 		}
 	}
 	
-	private void HandleClientCalls() throws UnknownHostException, IOException, SQLException
+	public void HandleClientCalls() throws UnknownHostException, IOException, SQLException
 	{
 		Socket socket = new Socket(host, portNumber);
 		int endbit = 0;
