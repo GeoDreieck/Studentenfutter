@@ -24,7 +24,7 @@ public class SL_Logic_Access implements Server_Logic_Interface
 		appcall_handler.Get_RFD_Info(infobit, restaurant_id);
 	}
 	
-	public void Handle_Order_Credits(List<List<String>> orderlist) throws SQLException
+	public void Handle_Order_Credits(List<List<String>> orderlist) throws SQLException, IOException
 	{
 		business_worker.Handle_Order_Credits(orderlist);
 	}

@@ -99,9 +99,9 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
 		{
 			for(int i2 = 0; i2 < orderarray.get(i).size(); i2++)
 			{
-				pr.print(orderarray.get(i).get(i2));
+				pr.println(orderarray.get(i).get(i2));
 			}
-			pr.print("");
+			pr.println("");
 			//pr.flush(); Achtung, mögliche Fehlerquelle.
 		}
 		

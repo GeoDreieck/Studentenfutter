@@ -117,7 +117,7 @@ public class Database_Access implements Database_Access_Interface
 		return infoarray;
 	}
 	
-	public Boolean Write_Order(List<List<String>> orderlist) throws SQLException
+	public int Write_Order(List<List<String>> orderlist) throws SQLException
 	{
 		List<String> insertstatementlist = new ArrayList<String>();
 		try (Connection connection = DriverManager.getConnection(ip_address, username, password)) {
@@ -126,7 +126,7 @@ public class Database_Access implements Database_Access_Interface
 			 System.out.println("Database connected!");
 		} catch (SQLException e) {
 			conn.close();
-		    return false;
+		    return 0;
 		}
 		Statement stmt = conn.createStatement();
 		for(int i = 0; i < orderlist.size(); i++)
@@ -145,7 +145,7 @@ public class Database_Access implements Database_Access_Interface
 				{
 					stmt.close();
 					conn.close();
-					return false;
+					return 0;
 				}
 			}
 			
@@ -158,14 +158,16 @@ public class Database_Access implements Database_Access_Interface
 				insertstatement = insertstatement + ", ";
 		}
 		
-		int rs = stmt.executeUpdate("INSERT INTO BESTELLUNG_INFO (GERICHT_ID, DRINK_ID, ANZAHL, PERSON_ID) VALUES " + insertstatement);
+		int result = stmt.executeUpdate("INSERT INTO BESTELLUNG_INFO (GERICHT_ID, DRINK_ID, ANZAHL, PERSON_ID) VALUES " + insertstatement);
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    result = rs.getInt(1);
+		}
+		
 		stmt.close();
 		conn.close();
 		
-		if(rs <= 0)
-			return false;
-		
-		return true;
+		return result;
 	}
 
 	public Boolean Check_Credits(int creditprize) throws SQLException

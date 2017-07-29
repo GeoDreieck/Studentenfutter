@@ -44,9 +44,9 @@ public class SL_Get_RFD_Infos
 		{
 			for(int i2 = 0; i2 < infoarray.get(i).size(); i2++)
 			{
-				pr.print(infoarray.get(i).get(i2));
+				pr.println(infoarray.get(i).get(i2));
 			}
-			pr.print("");
+			pr.println("");
 		}
 		out.flush();
 	}
@@ -61,9 +61,9 @@ public class SL_Get_RFD_Infos
 		{
 			for(int i2 = 0; i2 < infoarray.get(i).size(); i2++)
 			{
-				pr.print(infoarray.get(i).get(i2));
+				pr.println(infoarray.get(i).get(i2));
 			}
-			pr.print("");
+			pr.println("");
 		}
 		out.flush();
 	}
@@ -78,9 +78,9 @@ public class SL_Get_RFD_Infos
 		{
 			for(int i2 = 0; i2 < infoarray.get(i).size(); i2++)
 			{
-				pr.print(infoarray.get(i).get(i2));
+				pr.println(infoarray.get(i).get(i2));
 			}
-			pr.print("");
+			pr.println("");
 		}
 		out.flush();
 	}
