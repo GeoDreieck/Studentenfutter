@@ -6,21 +6,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import Server_Connection_Handler.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Geschaefte extends AppCompatActivity {
 
+    // Attributes
+    Server_Connection_Handler_Interface server_connection_handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geschaefte);
+        Intent intent = getIntent();
+         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
 
         ListView listView=(ListView)findViewById(R.id.listviewGeschaefte);
 
-        List<List<String>> list = new ArrayList<List<String>>();
-        ArrayList <String> list2 = new ArrayList <String>();
+        List<List<String>> list  = null;
+        try {
+            list = server_connection_handler.GetRestaurantinfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+     /*   ArrayList <String> list2 = new ArrayList <String>();
         ArrayList <String> list3 = new ArrayList <String>();
         list2.add("Pommeriens");
         list2.add("Italienisch angehaucht");
@@ -30,7 +42,7 @@ public class Geschaefte extends AppCompatActivity {
         list3.add("Schmeckt nicht gut");
         list3.add("14:00 - 18:00");
         list.add(list2);
-        list.add(list3);
+        list.add(list3); */
 
         ListViewAdapter adapter=new ListViewAdapter(this, list,1);
         listView.setAdapter(adapter);
@@ -52,6 +64,7 @@ public class Geschaefte extends AppCompatActivity {
     public void screenChangeSpeisen(View view)
     {
         Intent intent = new Intent(this, Getraenke.class);
+        intent.putExtra("interface", server_connection_handler);
         startActivity(intent);
     }
 
