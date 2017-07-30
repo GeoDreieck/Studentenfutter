@@ -27,7 +27,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
 		Socket socket = new Socket(host, portNumber);
 		
 		//infoindex als output an den Server gibt an, welche Infos angefordert werden
-		//Siehe Namen der unten stehenden Funktionen und die and diese Funktion übergebenen Werte oder die Dokumentation als Referenz
+		//Siehe Namen der unten stehenden Funktionen und die and diese Funktion uebergebenen Werte oder die Dokumentation als Referenz
 		OutputStream out = socket.getOutputStream();
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -102,7 +102,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
 				pr.println(orderarray.get(i).get(i2));
 			}
 			pr.println("");
-			//pr.flush(); Achtung, mögliche Fehlerquelle.
+			//pr.flush(); Achtung, moegliche Fehlerquelle.
 		}
 		
 		out.flush();
