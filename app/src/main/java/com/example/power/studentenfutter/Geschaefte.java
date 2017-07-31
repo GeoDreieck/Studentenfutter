@@ -25,7 +25,7 @@ public class Geschaefte extends AppCompatActivity {
         setContentView(R.layout.activity_geschaefte);
         Intent intent = getIntent();
          server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
-        warenkorb = (Warenkorb) intent.getSerializableExtra("warenkorb");
+
 
         ListView listView=(ListView)findViewById(R.id.listviewGeschaefte);
 
