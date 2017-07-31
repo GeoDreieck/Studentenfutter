@@ -12,6 +12,6 @@ public interface Server_Connection_Handler_Interface extends Serializable
 	
 	public List<List<String>> GetRestaurantinfo() throws IOException;
 
-	public void OrderwithCredits(List<List<String>> orderarray) throws IOException;
+	public void OrderwithCredits(List<List<String>> orderarray) throws IOException, InterruptedException;
 	
 }
