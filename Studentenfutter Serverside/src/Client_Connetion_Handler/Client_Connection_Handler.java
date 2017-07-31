@@ -3,42 +3,33 @@ package Client_Connetion_Handler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import Server_Logic.*;
 
 public class Client_Connection_Handler implements Client_Connection_Handler_Interface
 {
 	//attributes
-	final String host = "HOSTADRESS";
-	final int portNumber = 81;
 	Server_Logic_Interface sli;
+	ServerSocket providersocket;
 	
-	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) 
+	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) throws InterruptedException 
 	{
 		sli = server_logic_interface;
-		System.out.println("Creating socket to '" + host + "' on port " + portNumber);
-		try {
-			HandleClientCalls();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
-	public void HandleClientCalls() throws UnknownHostException, IOException, SQLException
+	public void HandleClientCalls(CountDownLatch latch) throws UnknownHostException, IOException, SQLException
 	{
-		Socket socket = new Socket(host, portNumber);
+		
+		Socket socket = providersocket.accept();
+		latch.countDown();
 		int endbit = 0;
 		
 		//Funktion hört auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
@@ -95,7 +86,7 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 			if(endbit == 1)
 				break;
 		}
-		
+		providersocket.close();
 		socket.close();
 	}
 	

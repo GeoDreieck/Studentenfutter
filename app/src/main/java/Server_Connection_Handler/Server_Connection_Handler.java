@@ -23,7 +23,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
         System.out.println("Creating socket to '" + host + "' on port " + portNumber);
     }
 
-    private List<List<String>> GetInfosfromServer(int infoindex, int restaurant_id) throws UnknownHostException, IOException
+    private List<List<String>> GetInfosfromServer(int infoindex, int restaurant_id) throws UnknownHostException, IOException, InterruptedException
     {
     	List<List<String>> infoarray = new ArrayList<List<String>>();
     	CountDownLatch latch = new CountDownLatch(1);
