@@ -32,17 +32,7 @@ public class Geschaefte extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-     /*   ArrayList <String> list2 = new ArrayList <String>();
-        ArrayList <String> list3 = new ArrayList <String>();
-        list2.add("Pommeriens");
-        list2.add("Italienisch angehaucht");
-        list2.add("17:00 - 22:00");
 
-        list3.add("Dönerburg");
-        list3.add("Schmeckt nicht gut");
-        list3.add("14:00 - 18:00");
-        list.add(list2);
-        list.add(list3); */
 
         ListViewAdapter adapter=new ListViewAdapter(this, list,1);
         listView.setAdapter(adapter);
