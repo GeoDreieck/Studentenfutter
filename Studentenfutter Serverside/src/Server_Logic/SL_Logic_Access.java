@@ -1,6 +1,7 @@
 package Server_Logic;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,13 +20,13 @@ public class SL_Logic_Access implements Server_Logic_Interface
 		business_worker = new SL_Business_Worker(_database_access);
 	}
 	
-	public void Get_RFD(String infobit, int restaurant_id) throws SQLException, IOException
+	public void Get_RFD(String infobit, int restaurant_id, Socket socket) throws SQLException, IOException
 	{
-		appcall_handler.Get_RFD_Info(infobit, restaurant_id);
+		appcall_handler.Get_RFD_Info(infobit, restaurant_id, socket);
 	}
 	
-	public void Handle_Order_Credits(List<List<String>> orderlist) throws SQLException, IOException
+	public void Handle_Order_Credits(List<List<String>> orderlist, Socket socket) throws SQLException, IOException
 	{
-		business_worker.Handle_Order_Credits(orderlist);
+		business_worker.Handle_Order_Credits(orderlist, socket);
 	}
 }

@@ -1,6 +1,7 @@
 package Server_Logic;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 
 import Database_Access.*;
@@ -14,18 +15,18 @@ public class SL_AppCall_Handler
 		get_rfd_infos = new SL_Get_RFD_Infos(database_access);
 	}
 
-	protected void Get_RFD_Info(String infobit, int restaurant_id) throws SQLException, IOException
+	protected void Get_RFD_Info(String infobit, int restaurant_id, Socket socket) throws SQLException, IOException
 	{
 		switch(infobit)
 		{
 		case "1":
-			get_rfd_infos.Get_Restaurant_Info();
+			get_rfd_infos.Get_Restaurant_Info(socket);
 			break;
 		case "2":
-			get_rfd_infos.Get_Food_Info(restaurant_id);
+			get_rfd_infos.Get_Food_Info(restaurant_id, socket);
 			break;
 		case "3":
-			get_rfd_infos.Get_Drink_Info(restaurant_id);
+			get_rfd_infos.Get_Drink_Info(restaurant_id, socket);
 			break;
 		}
 	}
