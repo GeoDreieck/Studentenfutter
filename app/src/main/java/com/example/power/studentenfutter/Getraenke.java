@@ -16,16 +16,21 @@ public class Getraenke extends AppCompatActivity {
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
 
+    Warenkorb warenkorb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speisen);
-
+        Intent intent = getIntent();
+        server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
+        warenkorb = (Warenkorb) intent.getSerializableExtra("warenkorb");
     }
     public void screenChangeWarenkorb(View view)
     {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
+        intent.putExtra("warenkorb", warenkorb);
         startActivity(intent);
     }
     public void transportWarenkorb()

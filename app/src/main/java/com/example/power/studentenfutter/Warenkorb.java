@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class Warenkorb extends AppCompatActivity {
+import java.io.Serializable;
+
+public class Warenkorb extends AppCompatActivity
+        implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

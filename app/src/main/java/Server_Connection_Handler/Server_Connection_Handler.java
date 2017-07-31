@@ -29,53 +29,61 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
     	CountDownLatch latch = new CountDownLatch(1);
     	
         new Thread(new Runnable(){
-            public void run(){
-            	Socket socket = new Socket("77.20.227.221", portNumber);
-            	
+            public void run()  {
+                Socket socket = null;
+                try {
+                    socket = new Socket("77.20.227.221", portNumber);
 
-                //infoindex als output an den Server gibt an, welche Infos angefordert werden
-                //Siehe Namen der unten stehenden Funktionen und die and diese Funktion uebergebenen Werte oder die Dokumentation als Referenz
-                OutputStream out = socket.getOutputStream();
+                    //infoindex als output an den Server gibt an, welche Infos angefordert werden
+                    //Siehe Namen der unten stehenden Funktionen und die and diese Funktion uebergebenen Werte oder die Dokumentation als Referenz
+                    OutputStream out = socket.getOutputStream();
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                if(infoindex == 1 || infoindex == 2)
-                {
-                    out.write(infoindex);
-                    out.write(restaurant_id);
-                }
-                else
-                {
-                    out.write(infoindex);
-                }
-                out.flush();
-                out.close();
-
-                for(int i = 0; i < 0; i++)
-                {
-                    List<String> templist = new ArrayList<String>();
-                    for(int i2 = 0; i2 < 0; i2++)
+                    if(infoindex == 1 || infoindex == 2)
                     {
-                        //Wenn temp == "", neue Liste.
-                        String temp = br.readLine();
-                        if(temp == "")
-                        {
-                            i = -2;
-                            break;
-                        }
-
-                        //Wenn temp == null, br leer.
-                        if(temp == null)
-                        {
-                            break;
-                        }
-
-                        templist.add(temp);
+                        out.write(infoindex);
+                        out.write(restaurant_id);
                     }
-                    infoarray.add(templist);
+                    else
+                    {
+                        out.write(infoindex);
+                    }
+                    out.flush();
+                    out.close();
+
+                    for(int i = 0; i < 0; i++)
+                    {
+                        List<String> templist = new ArrayList<String>();
+                        for(int i2 = 0; i2 < 0; i2++)
+                        {
+                            //Wenn temp == "", neue Liste.
+                            String temp = br.readLine();
+                            if(temp == "")
+                            {
+                                i = -2;
+                                break;
+                            }
+
+                            //Wenn temp == null, br leer.
+                            if(temp == null)
+                            {
+                                break;
+                            }
+
+                            templist.add(temp);
+                        }
+                        infoarray.add(templist);
+                    }
+                    latch.countDown();
+                    socket.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                latch.countDown();
-                socket.close();
+
+
+
             }
         }).start();
         
