@@ -65,15 +65,16 @@ public class Speisen extends AppCompatActivity {
     }
     public void transportWarenkorb(View view)
     {
-        ListView lv = (ListView) findViewById(R.id.listviewgetraenke);
-        final int position = lv.getPositionForView((LinearLayout)view.getParent());
+        ListView lv = (ListView) findViewById(R.id.listviewspeisen);
+        LinearLayout ll = (LinearLayout)view.getParent();
+        final int position = lv.getPositionForView(ll);
 
         List<String> stringlist = new ArrayList<String>();
 
         View v = lv.getChildAt(position);
 
         TextView textview1=(TextView)v.findViewById(R.id.name);
-        TextView textview2=(TextView)v.findViewById(R.id.name);
+        TextView textview2=(TextView)v.findViewById(R.id.price);
         Spinner spinner=(Spinner)v.findViewById(R.id.amount);
 
         stringlist.add(textview1.getText().toString());
