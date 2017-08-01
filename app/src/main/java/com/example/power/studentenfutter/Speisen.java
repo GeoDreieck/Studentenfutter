@@ -60,7 +60,6 @@ public class Speisen extends AppCompatActivity {
         ListViewAdapter adapter=new ListViewAdapter(this, testlist2,2);
         listView.setAdapter(adapter);
     }
-
     public void transportWarenkorb(View view)
     {
 
