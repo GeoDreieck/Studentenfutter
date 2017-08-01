@@ -35,13 +35,13 @@ public class Speisen extends AppCompatActivity {
         final ListView listView=(ListView)findViewById(R.id.listviewspeisen);
 
 
-        /*try {
+        try {
             list = server_connection_handler.GetFoodinfofromRestaurant(0);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        List<String> testlist = new ArrayList<String>();
+        /*List<String> testlist = new ArrayList<String>();
         List<List<String>> testlist2 = new ArrayList<List<String>>();
 
         testlist = new ArrayList<String>();
@@ -58,9 +58,9 @@ public class Speisen extends AppCompatActivity {
         testlist.add("platzhalter");
         testlist.add("teuerer Wein");
         testlist.add("ende");
-        testlist2.add(testlist);
+        testlist2.add(testlist);*/
 
-        ListViewAdapter adapter=new ListViewAdapter(this, testlist2,2);
+        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
         listView.setAdapter(adapter);
     }
     public void transportWarenkorb(View view)
@@ -77,9 +77,12 @@ public class Speisen extends AppCompatActivity {
         TextView textview2=(TextView)v.findViewById(R.id.price);
         Spinner spinner=(Spinner)v.findViewById(R.id.amount);
 
+        stringlist.add(list.get(position).get(0));
         stringlist.add(textview1.getText().toString());
         stringlist.add(textview2.getText().toString());
         stringlist.add(spinner.getSelectedItem().toString());
+        stringlist.add("FOOD");
+
 
         warenkorb.AddtoWarenkorbList(stringlist);
     }

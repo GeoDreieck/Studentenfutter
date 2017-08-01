@@ -37,13 +37,13 @@ public class Getraenke extends AppCompatActivity {
         final ListView listView=(ListView)findViewById(R.id.listviewgetraenke);
 
 
-        /*try {
+        try {
             list = server_connection_handler.GetDrinkinfofromRestaurant(0);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        List<String> testlist = new ArrayList<String>();
+        /*List<String> testlist = new ArrayList<String>();
         List<List<String>> testlist2 = new ArrayList<List<String>>();
 
         testlist = new ArrayList<String>();
@@ -59,9 +59,9 @@ public class Getraenke extends AppCompatActivity {
         testlist.add("platzhalter");
         testlist.add("teuerer Wein");
         testlist.add("ende");
-        testlist2.add(testlist);
+        testlist2.add(testlist);*/
 
-        ListViewAdapter adapter = new ListViewAdapter(this, testlist2,3);
+        ListViewAdapter adapter = new ListViewAdapter(this, list,3);
         listView.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
     }
@@ -82,12 +82,15 @@ public class Getraenke extends AppCompatActivity {
         View v = lv.getChildAt(position);
 
         TextView textview1=(TextView)v.findViewById(R.id.name);
-        TextView textview2=(TextView)v.findViewById(R.id.name);
+        TextView textview2=(TextView)v.findViewById(R.id.price);
         Spinner spinner=(Spinner)v.findViewById(R.id.amount);
 
+        stringlist.add(list.get(position).get(0));
         stringlist.add(textview1.getText().toString());
         stringlist.add(textview2.getText().toString());
+        stringlist.add("DRINK");
         stringlist.add(spinner.getSelectedItem().toString());
+
 
         warenkorb.AddtoWarenkorbList(stringlist);
     }

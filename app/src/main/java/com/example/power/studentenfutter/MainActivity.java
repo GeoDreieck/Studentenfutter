@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void screenChangeGeschaeft(View view)
     {
-        Intent intent = new Intent(this, Speisen.class);
+        Intent intent = new Intent(this, Geschaefte.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
         startActivity(intent);
