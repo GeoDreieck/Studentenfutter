@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import Server_Connection_Handler.*;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,31 +19,48 @@ public class Getraenke extends AppCompatActivity {
 
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
-
-
-    Warenkorb warenkorb;
-
+    Warenkorbinhalt warenkorb;
+    List<List<String>> list  = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        list = new ArrayList<List<String>>();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_speisen);
+        setContentView(R.layout.activity_getraenke);
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
-        warenkorb = (Warenkorb) intent.getSerializableExtra("warenkorb");
+        warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
 
-        ListView listView=(ListView)findViewById(R.id.listview);
+        final ListView listView=(ListView)findViewById(R.id.listviewgetraenke);
 
-        List<List<String>> list  = null;
-        try {
+
+        /*try {
             list = server_connection_handler.GetDrinkinfofromRestaurant(0);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
+        List<String> testlist = new ArrayList<String>();
+        List<List<String>> testlist2 = new ArrayList<List<String>>();
 
-        ListViewAdapter adapter = new ListViewAdapter(this, list,3);
+        testlist = new ArrayList<String>();
+        testlist.add("0");
+        testlist.add("1 Euro");
+        testlist.add("platzhalter");
+        testlist.add("billiger Wein");
+        testlist.add("ende");
+        testlist2.add(testlist);
+
+        testlist.add("1");
+        testlist.add("18 Euro");
+        testlist.add("platzhalter");
+        testlist.add("teuerer Wein");
+        testlist.add("ende");
+        testlist2.add(testlist);
+
+        ListViewAdapter adapter = new ListViewAdapter(this, testlist2,3);
         listView.setAdapter(adapter);
+        //adapter.notifyDataSetChanged();
     }
     public void screenChangeWarenkorb(View view)
     {
@@ -50,8 +69,18 @@ public class Getraenke extends AppCompatActivity {
         intent.putExtra("warenkorb", warenkorb);
         startActivity(intent);
     }
-    public void transportWarenkorb()
+    public void transportWarenkorb(View view)
     {
+        final int position = (int) view.getTag();
 
+        List<String> stringlist = new ArrayList<String>();
+
+        stringlist.add(list.get(position).get(1));
+        stringlist.add(list.get(position).get(3));
+
+        Spinner spinner=(Spinner)view.findViewById(R.id.amount);
+        stringlist.add(spinner.getSelectedItem().toString());
+
+        warenkorb.AddtoWarenkorbList(stringlist);
     }
 }

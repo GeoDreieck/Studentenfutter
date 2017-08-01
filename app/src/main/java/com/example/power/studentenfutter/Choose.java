@@ -10,14 +10,14 @@ public class Choose extends AppCompatActivity {
 
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
-    Warenkorb warenkorb;
+    Warenkorbinhalt warenkorb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
-        warenkorb = (Warenkorb) intent.getSerializableExtra("warenkorb");
+        warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
     }
     public void screenChangeGetraenke(View view)
     {

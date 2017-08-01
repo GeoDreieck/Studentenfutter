@@ -12,17 +12,17 @@ import android.content.Intent;
 public class MainActivity extends AppCompatActivity {
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
-    Warenkorb warenkorb;
+    Warenkorbinhalt warenkorb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         server_connection_handler = new Server_Connection_Handler();
-        warenkorb = new Warenkorb();
+        warenkorb = new Warenkorbinhalt();
     }
     public void screenChangeGeschaeft(View view)
     {
-        Intent intent = new Intent(this, Geschaefte.class);
+        Intent intent = new Intent(this, Speisen.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
         startActivity(intent);

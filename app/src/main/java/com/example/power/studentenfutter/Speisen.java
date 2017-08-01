@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Server_Connection_Handler.*;
@@ -15,33 +16,52 @@ public class Speisen extends AppCompatActivity {
 
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
-    Warenkorb warenkorb;
-
+    Warenkorbinhalt warenkorb;
+    List<List<String>> list  = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        list = new ArrayList<List<String>>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speisen);
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
-        warenkorb = (Warenkorb) intent.getSerializableExtra("warenkorb");
+        warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
 
-        ListView listView=(ListView)findViewById(R.id.listviewspeisen);
+        final ListView listView=(ListView)findViewById(R.id.listviewspeisen);
 
-        List<List<String>> list  = null;
-        try {
+
+        /*try {
             list = server_connection_handler.GetFoodinfofromRestaurant(0);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
+        List<String> testlist = new ArrayList<String>();
+        List<List<String>> testlist2 = new ArrayList<List<String>>();
 
-        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
+        testlist = new ArrayList<String>();
+        testlist.add("0");
+        testlist.add("1 Euro");
+        testlist.add("platzhalter");
+        testlist.add("billiger Wein");
+        testlist.add("ende");
+        testlist2.add(testlist);
+
+        testlist = new ArrayList<String>();
+        testlist.add("1");
+        testlist.add("18 Euro");
+        testlist.add("platzhalter");
+        testlist.add("teuerer Wein");
+        testlist.add("ende");
+        testlist2.add(testlist);
+
+        ListViewAdapter adapter=new ListViewAdapter(this, testlist2,2);
         listView.setAdapter(adapter);
     }
 
-    public void transportWarenkorb()
+    public void transportWarenkorb(View view)
     {
 
     }

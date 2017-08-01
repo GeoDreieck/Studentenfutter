@@ -179,6 +179,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                 }
 
                 PrintWriter pr = new PrintWriter(out);
+                pr.println("Credits");
 
                 for (int i = 0; i < orderarray.size(); i++) {
                     for (int i2 = 0; i2 < orderarray.get(i).size(); i2++) {
