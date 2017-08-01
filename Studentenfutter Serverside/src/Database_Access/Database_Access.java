@@ -13,7 +13,7 @@ public class Database_Access implements Database_Access_Interface
 	//attributes
 	String username = "applikationUser";
 	String password = "12345";
-	String ip_address = "tobedetermined";
+	String ip_address = "10.60.17.241";
 	Connection conn;
 
 	public Database_Access() {
