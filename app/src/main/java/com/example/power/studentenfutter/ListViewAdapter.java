@@ -22,7 +22,7 @@ public class ListViewAdapter extends BaseAdapter{
     Spinner spinner;
     Button btn;
     int option;
-    
+
     public ListViewAdapter(Activity activity,List<List<String>> list, int option){
         super();
         this.activity=activity;
