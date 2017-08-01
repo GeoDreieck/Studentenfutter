@@ -45,12 +45,13 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 				{
 					case "1":
 					case "2":
-						sli.Get_RFD(temp, -1, socket);
+						int restaurant_id = Integer.parseInt(br.readLine());
+						sli.Get_RFD(temp, restaurant_id, socket);
 						break;
 						
 					case "3":
-						int restaurant_id = Integer.parseInt(br.readLine());
-						sli.Get_RFD(temp, restaurant_id, socket);
+						
+						sli.Get_RFD(temp, -1, socket);
 						break;
 				
 					case "Credits":

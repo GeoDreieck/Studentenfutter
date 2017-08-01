@@ -131,15 +131,15 @@ public class Database_Access implements Database_Access_Interface
 		Statement stmt = conn.createStatement();
 		for(int i = 0; i < orderlist.size(); i++)
 		{
-			if(orderlist.get(i).get(4) == "FOOD")
+			if(orderlist.get(i).get(3) == "FOOD")
 			{
-				insertstatementlist.add("" + orderlist.get(i).get(0) + ", NULL, " + orderlist.get(i).get(1) + ", " + orderlist.get(i).get(2));
+				insertstatementlist.add("" + orderlist.get(i).get(0) + ", NULL, " + orderlist.get(i).get(3) + ", " + orderlist.get(i).get(5));
 			}
 			else
 			{
-				if(orderlist.get(i).get(4) == "DRINK")
+				if(orderlist.get(i).get(3) == "DRINK")
 				{
-					insertstatementlist.add("NULL, " + orderlist.get(i).get(0) + ", " + orderlist.get(i).get(1) + ", " + orderlist.get(i).get(2));
+					insertstatementlist.add("NULL, " + orderlist.get(i).get(0) + ", " + orderlist.get(i).get(3) + ", " + orderlist.get(i).get(5));
 				}
 				else
 				{
