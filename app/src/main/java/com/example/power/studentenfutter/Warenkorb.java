@@ -7,11 +7,15 @@ import android.view.View;
 
 public class Warenkorb extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warenkorb);
     }
+
+
+
     public void screenChangePaypal(View view)
     {
         Intent intent = new Intent(this, Paypal.class);

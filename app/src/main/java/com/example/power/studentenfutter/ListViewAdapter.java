@@ -22,6 +22,7 @@ public class ListViewAdapter extends BaseAdapter{
     Spinner spinner;
     Button btn;
     int option;
+
     public ListViewAdapter(Activity activity,List<List<String>> list, int option){
         super();
         this.activity=activity;
@@ -63,8 +64,8 @@ public class ListViewAdapter extends BaseAdapter{
             }
 
             List <String> stringList=list.get(position);
-            txtFirst.setText(stringList.get(0));
-            txtSecond.setText(stringList.get(1));
+            txtFirst.setText(stringList.get(1));
+            txtSecond.setText(stringList.get(3));
 
             //create a list of items for the spinner.
             String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
@@ -95,9 +96,14 @@ public class ListViewAdapter extends BaseAdapter{
              }
 
              List <String> stringList=list.get(position);
-             txtFirst.setText(stringList.get(0));
-             txtSecond.setText(stringList.get(2));
-             String temp = stringList.get(3)+":" + stringList.get(4) +" - " + stringList.get(5) + ":" + stringList.get(6);
+             txtFirst.setText(stringList.get(1));
+             txtSecond.setText(stringList.get(3));
+
+             String temp;
+             if(stringList.get(8) == "0")
+                 temp = "Geschlossen";
+             else
+                 temp = stringList.get(4)+":" + stringList.get(5) +" - " + stringList.get(6) + ":" + stringList.get(7);
 
              txtThird.setText(temp);
 

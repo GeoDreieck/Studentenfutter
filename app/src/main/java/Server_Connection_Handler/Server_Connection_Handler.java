@@ -23,33 +23,64 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
         System.out.println("Creating socket to '" + host + "' on port " + portNumber);
     }
 
-    private List<List<String>> GetInfosfromServer(int infoindex, int restaurant_id) throws UnknownHostException, IOException, InterruptedException
+    private List<List<String>> GetInfosfromServer(final int infoindex, final int restaurant_id) throws UnknownHostException, IOException, InterruptedException
     {
-    	List<List<String>> infoarray = new ArrayList<List<String>>();
-    	CountDownLatch latch = new CountDownLatch(1);
+    	final List<List<String>> infoarray = new ArrayList<List<String>>();
+    	final CountDownLatch latch = new CountDownLatch(1);
     	
         new Thread(new Runnable(){
-            public void run(){
-            	Socket socket = new Socket("77.20.227.221", portNumber);
-            	
+            public void run()  {
+                Socket socket = null;
+                try {
+                    socket = new Socket("77.20.227.221", portNumber);
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 //infoindex als output an den Server gibt an, welche Infos angefordert werden
                 //Siehe Namen der unten stehenden Funktionen und die and diese Funktion uebergebenen Werte oder die Dokumentation als Referenz
-                OutputStream out = socket.getOutputStream();
+                OutputStream out = null;
+                try {
+                    out = socket.getOutputStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedReader br = null;
+                try {
+                    br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if(infoindex == 1 || infoindex == 2)
                 {
-                    out.write(infoindex);
-                    out.write(restaurant_id);
+                    try {
+                        out.write(infoindex);
+                        out.write(restaurant_id);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {
-                    out.write(infoindex);
+                    try {
+                        out.write(infoindex);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                out.flush();
-                out.close();
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 for(int i = 0; i < 0; i++)
                 {
@@ -57,7 +88,12 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                     for(int i2 = 0; i2 < 0; i2++)
                     {
                         //Wenn temp == "", neue Liste.
-                        String temp = br.readLine();
+                        String temp = null;
+                        try {
+                            temp = br.readLine();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         if(temp == "")
                         {
                             i = -2;
@@ -75,7 +111,11 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                     infoarray.add(templist);
                 }
                 latch.countDown();
-                socket.close();
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
         
@@ -85,44 +125,78 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
 
     public List<List<String>> GetFoodinfofromRestaurant(int restaurant_id) throws IOException
     {
-        return GetInfosfromServer(1, restaurant_id);
+        List<List<String>> list =null;
+
+        try {
+            list = GetInfosfromServer(1, restaurant_id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public List<List<String>> GetDrinkinfofromRestaurant(int restaurant_id) throws IOException
     {
-        return GetInfosfromServer(2, restaurant_id);
+        List<List<String>> list =null;
+
+        try {
+            list = GetInfosfromServer(2, restaurant_id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public List<List<String>> GetRestaurantinfo() throws IOException
     {
-        return GetInfosfromServer(3, 0);
+        List<List<String>> list =null;
+
+        try {
+            list = GetInfosfromServer(3, 0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
-    public void OrderwithCredits(List<List<String>> orderarray) throws IOException
-    {
-    	CountDownLatch latch = new CountDownLatch(1);
+    public void OrderwithCredits(final List<List<String>> orderarray) throws IOException, InterruptedException {
+    	final CountDownLatch latch = new CountDownLatch(1);
     	
         new Thread(new Runnable(){
-            public void run(){
-            	Socket socket = new Socket(host, portNumber);
+            public void run() {
+                Socket socket = null;
+                try {
+                    socket = new Socket(host, portNumber);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            	OutputStream out = socket.getOutputStream();
+                OutputStream out = null;
+                try {
+                    out = socket.getOutputStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            	PrintWriter pr = new PrintWriter(out);
+                PrintWriter pr = new PrintWriter(out);
+                pr.println("Credits");
 
-            	for(int i = 0; i < orderarray.size(); i++)
-            	{
-            		for(int i2 = 0; i2 < orderarray.get(i).size(); i2++)
-            		{
-            			pr.println(orderarray.get(i).get(i2));
-            		}
-            		pr.println("");
-            		//pr.flush(); Achtung, moegliche Fehlerquelle.
-            	}
+                for (int i = 0; i < orderarray.size(); i++) {
+                    for (int i2 = 0; i2 < orderarray.get(i).size(); i2++) {
+                        pr.println(orderarray.get(i).get(i2));
+                    }
+                    pr.println("");
+                    //pr.flush(); Achtung, moegliche Fehlerquelle.
+                }
 
-            	out.flush();
-            	latch.countDown();
-            	socket.close();
+                try {
+                    out.flush();
+                    latch.countDown();
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         
             }).start();
         
