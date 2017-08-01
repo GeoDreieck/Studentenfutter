@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewParent;
 import Server_Connection_Handler.*;
+
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,14 +74,19 @@ public class Getraenke extends AppCompatActivity {
     }
     public void transportWarenkorb(View view)
     {
-        final int position = (int) view.getTag();
+        ListView lv = (ListView) findViewById(R.id.listviewgetraenke);
+        final int position = lv.getPositionForView((LinearLayout)view.getParent());
 
         List<String> stringlist = new ArrayList<String>();
 
-        stringlist.add(list.get(position).get(1));
-        stringlist.add(list.get(position).get(3));
+        View v = lv.getChildAt(position);
 
-        Spinner spinner=(Spinner)view.findViewById(R.id.amount);
+        TextView textview1=(TextView)v.findViewById(R.id.name);
+        TextView textview2=(TextView)v.findViewById(R.id.name);
+        Spinner spinner=(Spinner)v.findViewById(R.id.amount);
+
+        stringlist.add(textview1.getText().toString());
+        stringlist.add(textview2.getText().toString());
         stringlist.add(spinner.getSelectedItem().toString());
 
         warenkorb.AddtoWarenkorbList(stringlist);
