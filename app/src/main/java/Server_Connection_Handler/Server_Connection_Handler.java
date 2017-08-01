@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 public class Server_Connection_Handler implements Server_Connection_Handler_Interface
 {
     //attributes
-    final String host = "77.20.227.221";
+    final String host = "10.60.17.241";
     final int portNumber = 81;
 
     public Server_Connection_Handler()
