@@ -42,24 +42,6 @@ public class Speisen extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*List<String> testlist = new ArrayList<String>();
-        List<List<String>> testlist2 = new ArrayList<List<String>>();
-
-        testlist = new ArrayList<String>();
-        testlist.add("0");
-        testlist.add("1 Euro");
-        testlist.add("platzhalter");
-        testlist.add("billiger Wein");
-        testlist.add("ende");
-        testlist2.add(testlist);
-
-        testlist = new ArrayList<String>();
-        testlist.add("1");
-        testlist.add("18 Euro");
-        testlist.add("platzhalter");
-        testlist.add("teuerer Wein");
-        testlist.add("ende");
-        testlist2.add(testlist);*/
 
         ListViewAdapter adapter=new ListViewAdapter(this, list,2);
         listView.setAdapter(adapter);
