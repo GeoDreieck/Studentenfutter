@@ -3,26 +3,34 @@ package com.example.power.studentenfutter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
-public class test extends AppCompatActivity {
+import java.util.List;
+
+import Server_Connection_Handler.Server_Connection_Handler_Interface;
+
+public class choice extends AppCompatActivity {
+
+    // Attributes
+    Server_Connection_Handler_Interface server_connection_handler;
+    Warenkorbinhalt warenkorb;
 
     RelativeLayout notificationCount1;
     boolean isClicked = true;
     PopupWindow popUpWindow;
     LinearLayout containerLayout;
-    LinearLayout mainLayout;
+    ConstraintLayout mainLayout;
     TextView tvMsg;
     LayoutParams layoutParams;
 
@@ -30,11 +38,11 @@ public class test extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_choice);
         notificationCount1 = (RelativeLayout) findViewById(R.id.badge_layout1);
         popUpWindow = new PopupWindow(this);
         containerLayout = new LinearLayout(this);
-        mainLayout = (LinearLayout) findViewById(R.id.linelay);
+        mainLayout = (ConstraintLayout) findViewById(R.id.cons);
         tvMsg = new TextView(this);
         tvMsg.setText("Hi this is pop up window...");
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -42,6 +50,9 @@ public class test extends AppCompatActivity {
         containerLayout.setOrientation(LinearLayout.VERTICAL);
         containerLayout.addView(tvMsg, layoutParams);
         popUpWindow.setContentView(containerLayout);
+        Intent intent = getIntent();
+        server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
+        warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
     }
 
 
@@ -54,9 +65,14 @@ public class test extends AppCompatActivity {
         notificationCount1 = (RelativeLayout) MenuItemCompat.getActionView(item1);
         return super.onCreateOptionsMenu(menu);
 
-
     }
-    public void screenChangetest(View view)
+    public void screenChangepaypal(View view)
+    {
+        Intent intent = new Intent(this, Paypal.class);
+        startActivity(intent);
+    }
+
+    public void screenChangecredit(View view)
     {
 
         if (isClicked) {
@@ -67,6 +83,13 @@ public class test extends AppCompatActivity {
             isClicked = true;
             popUpWindow.dismiss();
         }
+    }
+    public void screenChangeWarenkorb(View view)
+    {
+        Intent intent = new Intent(this, Warenkorb.class);
+        intent.putExtra("interface", server_connection_handler);
+        intent.putExtra("warenkorb", warenkorb);
+        startActivity(intent);
     }
 
 

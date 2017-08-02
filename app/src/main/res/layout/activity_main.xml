@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:onClick="screenChangeGeschaeft"
+        android:onClick="screenChangeChooset"
         android:text="Anmelden"
         app:layout_constraintLeft_toLeftOf="@+id/editText2"
         app:layout_constraintRight_toRightOf="@+id/editText2"

@@ -24,7 +24,8 @@
         <activity android:name=".Warenkorb" />
         <activity android:name=".Geschaefte" />
         <activity android:name=".Getraenke" />
-        <activity android:name=".test"></activity>
+        <activity android:name=".Credtis" />
+        <activity android:name=".choice"></activity>
     </application>
 
 </manifest>

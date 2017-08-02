@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         server_connection_handler = new Server_Connection_Handler();
         warenkorb = new Warenkorbinhalt();
     }
-    public void screenChangeGeschaeft(View view)
+    public void screenChangeChooset(View view)
     {
-        Intent intent = new Intent(this, Geschaefte.class);
+        Intent intent = new Intent(this, Choose.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
         startActivity(intent);

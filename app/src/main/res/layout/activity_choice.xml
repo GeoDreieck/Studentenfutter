@@ -3,41 +3,38 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cons2"
+    android:id="@+id/cons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.power.studentenfutter.Choose">
+    tools:context="com.example.power.studentenfutter.choice">
 
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="119dp"
-        android:layout_height="52dp"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="91dp"
         android:layout_marginRight="91dp"
-        android:onClick="screenChangespeisen"
-        android:text="Speisen"
+        android:onClick="screenChangecredit"
+        android:text="Cerdits"
         app:layout_constraintBaseline_toBaselineOf="@+id/button4"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBaseline_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_editor_absoluteY="133dp" />
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="130dp"
-        android:layout_height="55dp"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
         android:layout_marginTop="133dp"
-        android:onClick="screenChangeGetraenke"
-        android:text="Getraenke"
+        android:onClick="screenChangepaypal"
+        android:text="Paypal"
         app:layout_constraintRight_toLeftOf="@+id/button5"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="131dp" />
+        tools:layout_constraintTop_creator="1" />
 
 
 </android.support.constraint.ConstraintLayout>
