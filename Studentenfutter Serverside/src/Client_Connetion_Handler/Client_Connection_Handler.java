@@ -19,20 +19,21 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 	Server_Logic_Interface sli;
 	ServerSocket providersocket;
 	
-	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) throws InterruptedException 
+	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) throws InterruptedException, IOException 
 	{
 		sli = server_logic_interface;
-		
+		providersocket = new ServerSocket(81);
 	}
 	
 	public void HandleClientCalls(CountDownLatch latch) throws UnknownHostException, IOException, SQLException
 	{
-		
+		System.out.println("waiting for client...");
 		Socket socket = providersocket.accept();
+		System.out.println("Connected to Client.");		
 		latch.countDown();
 		int endbit = 0;
 		
-		//Funktion hört auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
+		//Funktion hoert auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
@@ -41,16 +42,18 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 			String temp = br.readLine();
 			if(temp != null)
 			{
+				System.out.println(temp);
 				switch(temp)
 				{
 					case "1":
 					case "2":
-						sli.Get_RFD(temp, -1, socket);
+						int restaurant_id = Integer.parseInt(br.readLine());
+						sli.Get_RFD(temp, restaurant_id, socket);
 						break;
 						
 					case "3":
-						int restaurant_id = Integer.parseInt(br.readLine());
-						sli.Get_RFD(temp, restaurant_id, socket);
+						System.out.println("Restaurantinfo angefordert");
+						sli.Get_RFD(temp, -1, socket);
 						break;
 				
 					case "Credits":
@@ -79,10 +82,11 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 							orderlist.add(templist);
 						}
 						sli.Handle_Order_Credits(orderlist, socket);
+						endbit = 1;
 						break;
 				}
-			}
-			
+				System.out.println("Alles zum Cienten geflusht");
+			}			
 			if(endbit == 1)
 				break;
 		}

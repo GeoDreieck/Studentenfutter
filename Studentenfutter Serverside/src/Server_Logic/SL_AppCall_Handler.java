@@ -19,13 +19,14 @@ public class SL_AppCall_Handler
 	{
 		switch(infobit)
 		{
-		case "1":
+		case "3":
+			System.out.println("Just in case, yes, Restaurantinfo was asked for!");
 			get_rfd_infos.Get_Restaurant_Info(socket);
 			break;
-		case "2":
+		case "1":
 			get_rfd_infos.Get_Food_Info(restaurant_id, socket);
 			break;
-		case "3":
+		case "2":
 			get_rfd_infos.Get_Drink_Info(restaurant_id, socket);
 			break;
 		}

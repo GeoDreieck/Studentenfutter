@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.List;
 import Database_Access.*;
@@ -28,7 +27,7 @@ public class SL_Business_Worker
 		int creditsprize = 0;
 		for(int i = 0; i < orderlist.size(); i++)
 		{
-			creditsprize = creditsprize + Integer.parseInt(orderlist.get(i).get(4));
+			creditsprize = creditsprize + Integer.parseInt(orderlist.get(i).get(3));
 		}
 		Boolean result = _database_access_interface.Check_Credits(creditsprize);
 		int returnedid;
@@ -44,6 +43,7 @@ public class SL_Business_Worker
 			{
 				
 			}
+			pr.flush();
 		}
 		else
 		{

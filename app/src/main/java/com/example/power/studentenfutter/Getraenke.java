@@ -24,6 +24,7 @@ public class Getraenke extends AppCompatActivity {
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
+    int restaurantid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +34,18 @@ public class Getraenke extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        restaurantid  = Integer.parseInt(intent.getExtras().get("restaurantid").toString());
 
         final ListView listView=(ListView)findViewById(R.id.listviewgetraenke);
 
 
-        /*try {
-            list = server_connection_handler.GetDrinkinfofromRestaurant(0);
+        try {
+            list = server_connection_handler.GetDrinkinfofromRestaurant(restaurantid);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        List<String> testlist = new ArrayList<String>();
+        /*List<String> testlist = new ArrayList<String>();
         List<List<String>> testlist2 = new ArrayList<List<String>>();
 
         testlist = new ArrayList<String>();
@@ -59,9 +61,9 @@ public class Getraenke extends AppCompatActivity {
         testlist.add("platzhalter");
         testlist.add("teuerer Wein");
         testlist.add("ende");
-        testlist2.add(testlist);
+        testlist2.add(testlist);*/
 
-        ListViewAdapter adapter = new ListViewAdapter(this, testlist2,3);
+        ListViewAdapter adapter = new ListViewAdapter(this, list,3);
         listView.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
     }
@@ -82,12 +84,15 @@ public class Getraenke extends AppCompatActivity {
         View v = lv.getChildAt(position);
 
         TextView textview1=(TextView)v.findViewById(R.id.name);
-        TextView textview2=(TextView)v.findViewById(R.id.name);
+        TextView textview2=(TextView)v.findViewById(R.id.price);
         Spinner spinner=(Spinner)v.findViewById(R.id.amount);
 
+        stringlist.add(list.get(position).get(0));
         stringlist.add(textview1.getText().toString());
         stringlist.add(textview2.getText().toString());
+        stringlist.add("DRINK");
         stringlist.add(spinner.getSelectedItem().toString());
+
 
         warenkorb.AddtoWarenkorbList(stringlist);
     }

@@ -57,6 +57,7 @@ public class Geschaefte extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Choose.class);
                     intent.putExtra("interface", server_connection_handler);
                     intent.putExtra("warenkorb", warenkorb);
+                    intent.putExtra("restaurantid", list.get(position).get(0));
                     startActivity(intent);
                 }
 
