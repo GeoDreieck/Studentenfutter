@@ -43,6 +43,7 @@ public class SL_Business_Worker
 			{
 				
 			}
+			pr.flush();
 		}
 		else
 		{

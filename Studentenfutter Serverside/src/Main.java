@@ -14,7 +14,7 @@ public class Main
 	Database_Access_Interface database_access_interface;
 	Server_Logic_Interface server_logic_interface;
 	
-	public Main() throws InterruptedException, IOException {
+	public Main() throws InterruptedException, IOException, SQLException {
 		database_access_interface = new Database_Access();
 		server_logic_interface = new SL_Logic_Access(database_access_interface);
 		client_connection_handler_interface = new Client_Connection_Handler(server_logic_interface);

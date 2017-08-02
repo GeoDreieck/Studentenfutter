@@ -24,6 +24,7 @@ public class Getraenke extends AppCompatActivity {
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
+    int restaurantid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,13 @@ public class Getraenke extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        restaurantid  = Integer.parseInt(intent.getExtras().get("restaurantid").toString());
 
         final ListView listView=(ListView)findViewById(R.id.listviewgetraenke);
 
 
         try {
-            list = server_connection_handler.GetDrinkinfofromRestaurant(0);
+            list = server_connection_handler.GetDrinkinfofromRestaurant(restaurantid);
         } catch (IOException e) {
             e.printStackTrace();
         }

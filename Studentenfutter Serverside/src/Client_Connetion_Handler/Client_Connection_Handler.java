@@ -19,20 +19,21 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 	Server_Logic_Interface sli;
 	ServerSocket providersocket;
 	
-	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) throws InterruptedException 
+	public Client_Connection_Handler(Server_Logic_Interface server_logic_interface) throws InterruptedException, IOException 
 	{
 		sli = server_logic_interface;
-		
+		providersocket = new ServerSocket(81);
 	}
 	
 	public void HandleClientCalls(CountDownLatch latch) throws UnknownHostException, IOException, SQLException
 	{
-		
+		System.out.println("waiting for client...");
 		Socket socket = providersocket.accept();
+		System.out.println("Connected to Client.");		
 		latch.countDown();
 		int endbit = 0;
 		
-		//Funktion hört auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
+		//Funktion hoert auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
@@ -41,6 +42,7 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 			String temp = br.readLine();
 			if(temp != null)
 			{
+				System.out.println(temp);
 				switch(temp)
 				{
 					case "1":
@@ -50,7 +52,7 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 						break;
 						
 					case "3":
-						
+						System.out.println("Restaurantinfo angefordert");
 						sli.Get_RFD(temp, -1, socket);
 						break;
 				
@@ -80,10 +82,11 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 							orderlist.add(templist);
 						}
 						sli.Handle_Order_Credits(orderlist, socket);
+						endbit = 1;
 						break;
 				}
-			}
-			
+				System.out.println("Alles zum Cienten geflusht");
+			}			
 			if(endbit == 1)
 				break;
 		}
