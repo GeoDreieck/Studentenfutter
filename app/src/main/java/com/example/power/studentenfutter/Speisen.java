@@ -35,15 +35,13 @@ public class Speisen extends AppCompatActivity {
 
         final ListView listView=(ListView)findViewById(R.id.listviewspeisen);
 
-
         try {
             list = server_connection_handler.GetFoodinfofromRestaurant(restaurantid);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
+        ListViewAdapter adapter = new ListViewAdapter(this, list,2);
         listView.setAdapter(adapter);
     }
     public void transportWarenkorb(View view)
@@ -68,5 +66,13 @@ public class Speisen extends AppCompatActivity {
 
 
         warenkorb.AddtoWarenkorbList(stringlist);
+    }
+
+    public void OpenWarenkorb(View view)
+    {
+        Intent intent = new Intent(this, Warenkorb.class);
+        intent.putExtra("interface", server_connection_handler);
+        intent.putExtra("warenkorb", warenkorb);
+        startActivity(intent);
     }
 }

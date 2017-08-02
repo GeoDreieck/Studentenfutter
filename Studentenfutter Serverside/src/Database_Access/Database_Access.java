@@ -92,7 +92,7 @@ public class Database_Access implements Database_Access_Interface
 		conn = getConnection();
 		Statement stmt = conn.createStatement();
 		System.out.println("Restaurant-ID:" + restaurant_id);
-		ResultSet rs = stmt.executeQuery("SELECT * FROM DRINK_INFO where RESTAURANT_ID = " + restaurant_id);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM DRINK_INFO WHERE RESTAURANT_ID = " + restaurant_id);
 		
 		List<List<String>> infoarray = new ArrayList<List<String>>();
 		

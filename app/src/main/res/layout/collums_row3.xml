@@ -10,6 +10,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical|start"
         android:gravity="start" />
+
     <TextView
         android:id="@+id/price"
         android:layout_width="0dp"
@@ -17,6 +18,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical|center"
         android:gravity="center"/>
+
     <TextView
         android:id="@+id/amount"
         android:layout_height="wrap_content"
@@ -25,9 +27,5 @@
         android:textStyle="bold"
         android:layout_gravity="center_vertical|end"
         android:gravity="end"/>
-         />
 
-
-
-
-</LinearLayout>
+  </LinearLayout>

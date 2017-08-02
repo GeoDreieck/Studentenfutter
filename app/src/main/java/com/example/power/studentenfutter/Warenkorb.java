@@ -30,18 +30,22 @@ public class Warenkorb extends AppCompatActivity {
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
 
         final ListView listView=(ListView)findViewById(R.id.lv);
+
         list = warenkorb.GetWarenkorbList();
 
         double price = 0;
+        String temp = "";
         for (int i = 0; i<list.size();i++)
         {
-            price = price + Double.parseDouble(list.get(i).get(2));
+            temp = list.get(i).get(2);
+            temp = temp.substring(0, temp.length()-1);
+            temp = temp.replace(',', '.');
+            price = price + Double.parseDouble(temp);
         }
         TextView tv  = (TextView) findViewById(R.id.tv_price);
-        tv.setText(Double.toString(price));
+        tv.setText(Double.toString(price) + "€");
 
-        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
-
+        ListViewAdapter adapter=new ListViewAdapter(this, list, 4);
         listView.setAdapter(adapter);
     }
 

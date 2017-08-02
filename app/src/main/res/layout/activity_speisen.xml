@@ -27,14 +27,14 @@
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="screenChangeWarenkorb"
-        android:text="Warenkorb"
-        tools:layout_constraintRight_creator="1"
         android:layout_marginEnd="7dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="7dp"
+        android:onClick="OpenWarenkorb"
+        android:text="Warenkorb"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+        app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBaseline_creator="1"
-        android:layout_marginRight="7dp" />
+        tools:layout_constraintRight_creator="1" />
 
     <ListView
         android:id="@+id/listviewspeisen"
