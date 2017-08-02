@@ -110,7 +110,31 @@ public class ListViewAdapter extends BaseAdapter{
              return convertView;
          }
          else{
-             return convertView;
+             if(option == 4)
+             {
+                 LayoutInflater inflater=activity.getLayoutInflater();
+
+                 if(convertView == null){
+
+                     convertView=inflater.inflate(R.layout.collums_row3, null);
+
+                     txtFirst=(TextView) convertView.findViewById(R.id.name);
+                     txtSecond=(TextView) convertView.findViewById(R.id.price);
+                     txtThird=(TextView) convertView.findViewById(R.id.amount);
+
+                 }
+
+                 List <String> stringList=list.get(position);
+                 txtFirst.setText(stringList.get(1));
+                 txtSecond.setText(stringList.get(2));
+                 txtThird.setText(stringList.get(3));
+
+                 return convertView;
+             }
+             else
+             {
+                 return convertView;
+             }
          }
         }
 
