@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            //do popUp!
+            poppupForFailure(view);
         }
     }
 }

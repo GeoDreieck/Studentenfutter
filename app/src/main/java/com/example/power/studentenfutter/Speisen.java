@@ -98,21 +98,13 @@ public class Speisen extends AppCompatActivity {
         warenkorb.AddtoWarenkorbList(stringlist);
     }
 
-    public void OpenWarenkorb(View view)
-    {
-        Intent intent = new Intent(this, Warenkorb.class);
-        intent.putExtra("interface", server_connection_handler);
-        intent.putExtra("warenkorb", warenkorb);
-        intent.putExtra("user_id", user_id);
-        startActivity(intent);
-    }
-
     // Button Klickmethoden
     public void screenChangeWarenkorb(View view)
     {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
 }

@@ -58,6 +58,7 @@ public class Choose extends AppCompatActivity {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
 

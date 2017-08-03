@@ -54,10 +54,12 @@ public class Warenkorb extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-
-
     public void screenChangeBezahlungsoption(View view)
     {
-
+        Intent intent = new Intent(this, choice.class);
+        intent.putExtra("interface", server_connection_handler);
+        intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
+        startActivity(intent);
     }
 }
