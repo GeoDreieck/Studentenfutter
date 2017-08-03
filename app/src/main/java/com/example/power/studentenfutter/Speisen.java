@@ -41,6 +41,8 @@ public class Speisen extends AppCompatActivity {
         setContentView(R.layout.activity_speisen);
         notificationCount1 = (RelativeLayout) findViewById(R.id.badge_layout1);
 
+
+
         // Intent für Warenkorb & Interface & Restaurantid
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");

@@ -66,6 +66,8 @@ public class ListViewAdapter extends BaseAdapter{
             List <String> stringList=list.get(position);
             txtFirst.setText(stringList.get(1));
             txtSecond.setText(stringList.get(3));
+            spinner.setPrompt("1");
+            
 
             //create a list of items for the spinner.
             String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
@@ -128,6 +130,7 @@ public class ListViewAdapter extends BaseAdapter{
                  txtFirst.setText(stringList.get(1));
                  txtSecond.setText(stringList.get(2));
                  txtThird.setText(stringList.get(3));
+
 
                  return convertView;
              }
