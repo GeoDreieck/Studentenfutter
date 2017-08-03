@@ -79,6 +79,8 @@ public class choice extends AppCompatActivity {
             isClicked = false;
             popUpWindow.showAtLocation(mainLayout, Gravity.BOTTOM, 40, 40);
             popUpWindow.update(900, 900, 900, 500);
+           
+
         } else {
             isClicked = true;
             popUpWindow.dismiss();
