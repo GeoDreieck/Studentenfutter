@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
-import java.util.List;
 
 import Server_Connection_Handler.Server_Connection_Handler_Interface;
 
@@ -27,11 +23,8 @@ public class Choose extends AppCompatActivity {
     int user_id;
 
     RelativeLayout notificationCount1;
-    boolean isClicked = true;
-    PopupWindow popUpWindow;
     LinearLayout containerLayout;
     ConstraintLayout mainLayout;
-    TextView tvMsg;
     LayoutParams layoutParams;
 
 
@@ -40,22 +33,14 @@ public class Choose extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
         notificationCount1 = (RelativeLayout) findViewById(R.id.badge_layout1);
-        popUpWindow = new PopupWindow(this);
-        containerLayout = new LinearLayout(this);
-        mainLayout = (ConstraintLayout) findViewById(R.id.cons2);
-        tvMsg = new TextView(this);
-        tvMsg.setText("Hi this is pop up window...");
-        layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        containerLayout.setOrientation(LinearLayout.VERTICAL);
-        containerLayout.addView(tvMsg, layoutParams);
-        popUpWindow.setContentView(containerLayout);
+
+        // Intends für Interface & Warenkorb
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
         user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
     }
-
+    //  Parameter für Warenkorbbtn
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -66,6 +51,8 @@ public class Choose extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
+
+    // Button Klickmethoden
     public void screenChangeWarenkorb(View view)
     {
         Intent intent = new Intent(this, Warenkorb.class);

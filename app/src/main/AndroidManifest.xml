@@ -18,13 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Choose" />
-        <activity android:name=".Speisen" />
-        <activity android:name=".Paypal" />
-        <activity android:name=".Warenkorb" />
-        <activity android:name=".Geschaefte" />
-        <activity android:name=".Getraenke" />
-        <activity android:name=".Credtis" />
+
+        <activity android:name=".Choose"  android:screenOrientation="portrait" />
+        <activity android:name=".Speisen" android:screenOrientation="portrait"/>
+        <activity android:name=".Paypal" android:screenOrientation="portrait"/>
+        <activity android:name=".Warenkorb" android:screenOrientation="portrait"/>
+        <activity android:name=".Geschaefte" android:screenOrientation="portrait"/>
+        <activity android:name=".Getraenke" android:screenOrientation="portrait"/>
+        <activity android:name=".Credtis" android:screenOrientation="portrait"/>
         <activity android:name=".choice"></activity>
     </application>
 

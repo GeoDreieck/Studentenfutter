@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dasisser"
     tools:context="com.example.power.studentenfutter.Warenkorb">
 
 
@@ -28,21 +29,22 @@
         android:id="@+id/tv_price"
         android:layout_width="88dp"
         android:layout_height="32dp"
-        android:textSize="30sp"
-        app:layout_constraintRight_toLeftOf="@+id/btn_bestellen"
-        tools:layout_constraintRight_creator="1"
         android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_bestellen"
+        app:layout_constraintRight_toLeftOf="@+id/btn_bestellen"
         tools:layout_constraintBaseline_creator="1"
-        android:layout_marginRight="34dp" />
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/btn_bestellen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="51dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@android:color/holo_green_dark"
         android:onClick="screenChangeBezahlungsoption"
         android:text="Bestellen"
         app:layout_constraintBottom_toBottomOf="parent"
