@@ -2,8 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dasisser"
     tools:context="com.example.power.studentenfutter.MainActivity">
 
     <Button
@@ -11,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
+        android:background="@android:color/holo_orange_light"
         android:onClick="screenChangeChooset"
         android:text="Anmelden"
         app:layout_constraintLeft_toLeftOf="@+id/editText2"
@@ -25,30 +28,39 @@
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="183dp"
         android:ems="10"
         android:hint="Benutzername"
         android:inputType="textPersonName"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="183dp"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Passwort"
         android:inputType="textPersonName"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/editText"
         app:layout_constraintRight_toRightOf="@+id/editText"
-        android:layout_marginTop="21dp"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/editText" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="44dp"
+        android:layout_height="41dp"
+        android:onClick="poppupForFailure"
+        android:text="X"
+        tools:layout_editor_absoluteX="316dp"
+        tools:layout_editor_absoluteY="440dp" />
 
 </android.support.constraint.ConstraintLayout>

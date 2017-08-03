@@ -6,17 +6,18 @@
     android:id="@+id/cons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dasisser"
     tools:context="com.example.power.studentenfutter.choice">
 
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
+        android:layout_width="103dp"
+        android:layout_height="104dp"
         android:layout_marginEnd="91dp"
         android:layout_marginRight="91dp"
+        android:background="@drawable/credtis"
         android:onClick="screenChangecredit"
-        android:text="Cerdits"
         app:layout_constraintBaseline_toBaselineOf="@+id/button4"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBaseline_creator="1"
@@ -24,17 +25,31 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
+        android:layout_width="127dp"
+        android:layout_height="103dp"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="174dp"
+        android:background="@drawable/paypal"
         android:onClick="screenChangepaypal"
-        android:text="Paypal"
         app:layout_constraintRight_toLeftOf="@+id/button5"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/tf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wählen Sie Ihre Bezahlmethode aus"
+        android:textSize="17sp"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        android:layout_marginStart="16dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintLeft_toLeftOf="@+id/button4"
+        android:layout_marginLeft="16dp" />
 
 
 </android.support.constraint.ConstraintLayout>
