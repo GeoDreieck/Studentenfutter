@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         if (isClicked) {
             isClicked = false;
             popUpWindow.showAtLocation(mainLayout, Gravity.BOTTOM, 30, 30);
-            popUpWindow.update(650, 300, 400, 200);
+            popUpWindow.update(650, 880, 400, 200);
 
 
         } else {

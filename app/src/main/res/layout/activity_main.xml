@@ -12,7 +12,7 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="17dp"
         android:background="@android:color/holo_orange_light"
         android:onClick="screenChangeChooset"
         android:text="Anmelden"
@@ -21,7 +21,8 @@
         app:layout_constraintTop_toBottomOf="@+id/editText2"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
         android:id="@+id/editText"
@@ -62,5 +63,13 @@
         android:text="X"
         tools:layout_editor_absoluteX="316dp"
         tools:layout_editor_absoluteY="440dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="183dp"
+        tools:layout_editor_absoluteY="374dp" />
 
 </android.support.constraint.ConstraintLayout>
