@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         user_id = server_connection_handler.CheckLoggin(stringlist);
         if (user_id > 0)
         {
-            Intent intent = new Intent(this, Choose.class);
+            Intent intent = new Intent(this, choice.class);
             intent.putExtra("interface", server_connection_handler);
             intent.putExtra("warenkorb", warenkorb);
             intent.putExtra("user_id", user_id);
