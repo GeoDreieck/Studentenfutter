@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
+import java.io.IOException;
 import java.util.List;
 
 import Server_Connection_Handler.Server_Connection_Handler_Interface;
@@ -25,6 +26,7 @@ public class choice extends AppCompatActivity {
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
+    int user_id;
 
     RelativeLayout notificationCount1;
     boolean isClicked = true;
@@ -44,7 +46,7 @@ public class choice extends AppCompatActivity {
         containerLayout = new LinearLayout(this);
         mainLayout = (ConstraintLayout) findViewById(R.id.cons);
         tvMsg = new TextView(this);
-        tvMsg.setText("Hi this is pop up window...");
+        tvMsg.setText("");
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
@@ -53,6 +55,7 @@ public class choice extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
     }
 
 
@@ -72,8 +75,10 @@ public class choice extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void screenChangecredit(View view)
-    {
+    public void screenChangecredit(View view) throws IOException, InterruptedException {
+
+        String returnstring = server_connection_handler.OrderwithCredits(warenkorb.GetWarenkorbList());
+        tvMsg.setText(returnstring);
 
         if (isClicked) {
             isClicked = false;

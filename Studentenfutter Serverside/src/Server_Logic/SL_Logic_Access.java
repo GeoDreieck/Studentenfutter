@@ -7,6 +7,7 @@ import java.util.List;
 
 import Database_Access.*;
 
+//Zugriffsklass auf die Logik-Ebene - Verteilt Anfragen an die einzelnen Klassen
 public class SL_Logic_Access implements Server_Logic_Interface
 {
 	//attributes

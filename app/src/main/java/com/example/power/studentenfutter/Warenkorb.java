@@ -19,6 +19,7 @@ public class Warenkorb extends AppCompatActivity {
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class Warenkorb extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
 
         final ListView listView=(ListView)findViewById(R.id.lv);
 
@@ -35,12 +37,15 @@ public class Warenkorb extends AppCompatActivity {
 
         double price = 0;
         String temp = "";
+        double tempprice = 0;
         for (int i = 0; i<list.size();i++)
         {
             temp = list.get(i).get(2);
+            temp = temp.trim();
             temp = temp.substring(0, temp.length()-1);
             temp = temp.replace(',', '.');
-            price = price + Double.parseDouble(temp);
+            tempprice = Double.parseDouble(temp) * Double.parseDouble(list.get(i).get(3));
+            price = price + tempprice;
         }
         TextView tv  = (TextView) findViewById(R.id.tv_price);
         tv.setText(Double.toString(price) + "€");

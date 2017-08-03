@@ -27,21 +27,44 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 	
 	public void HandleClientCalls(CountDownLatch latch) throws UnknownHostException, IOException, SQLException
 	{
+		//Der ServerSocket wartet auf Clienten und verteilt sie auf Sockets
 		System.out.println("waiting for client...");
 		Socket socket = providersocket.accept();
 		System.out.println("Connected to Client.");		
 		latch.countDown();
 		int endbit = 0;
+		boolean tempwasset = false;
 		
 		//Funktion hoert auf Calls des Clienten und gibt diese an Funktionen wieder, wo sie ausgewertet und verarbeitet werden.
-		
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				for(int i = 0; i < 300; i++)
+				{
+					if(Thread.interrupted())
+						return;
+					try {
+						wait(1000);
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
 		while(true)
 		{
+			//Der Client_Connection_Handler wartet auf Client-Anfrage. Der thread dient als Timer. Falls vom User was kommt, wird er resettet. Kommt nach 5 Minuten nichts, bricht der Parent-Thread das warten für den Socket ab und schließt die Verbindungen
 			String temp = br.readLine();
-			if(temp != null)
+			if(temp != null && temp != "null")
 			{
+				endbit = 0;
+				tempwasset = true;
+				if(thread.isAlive())
+					thread.interrupt();
 				System.out.println(temp);
 				switch(temp)
 				{
@@ -85,8 +108,25 @@ public class Client_Connection_Handler implements Client_Connection_Handler_Inte
 						endbit = 1;
 						break;
 				}
+				if(thread.isAlive())
+					try {
+						thread.stop();
+					}
+					catch (Exception e)
+					{
+
+					}
+				thread.start();
 				System.out.println("Alles zum Cienten geflusht");
-			}			
+			}
+			else
+			{
+				if (!thread.isAlive())
+				{
+					if (tempwasset == false)
+						endbit = 1;
+				}
+			}
 			if(endbit == 1)
 				break;
 		}

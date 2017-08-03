@@ -22,13 +22,16 @@ public class Main
 	
 	public void run() throws UnknownHostException, IOException, SQLException, InterruptedException
 	{
+		//Solange das Programm an ist, wird auf Clienten gewartet
 		while(true)
 		{
+			//Das Verteilen auf mehrere Threads erlaubt es mehrere Clienten gleichzeitig zu versorgen
 			CountDownLatch latch = new CountDownLatch(1);
 			new Thread(new Runnable(){
 	            public void run()
 	            {
 	            	try {
+	            		//Im Thread wird ein Handler für die Anfragen der Clients aufgerufen
 	            		client_connection_handler_interface.HandleClientCalls(latch);
 					} catch (UnknownHostException e) {
 						// TODO Auto-generated catch block
@@ -48,6 +51,7 @@ public class Main
 		
 	}
 	
+	//Main-Methode
 	public static void main(String[] args) throws UnknownHostException, IOException, SQLException, InterruptedException{
 	    Main main = new Main();
 	    main.run();
