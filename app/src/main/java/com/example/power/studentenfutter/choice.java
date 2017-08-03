@@ -2,6 +2,7 @@ package com.example.power.studentenfutter;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -47,7 +48,9 @@ public class choice extends AppCompatActivity {
         containerLayout = new LinearLayout(this);
         mainLayout = (ConstraintLayout) findViewById(R.id.cons);
         tvMsg = new TextView(this);
+        tvMsg.setTextSize(25);
         tvMsg.setText("Bezahlvorgang Erfolgreich!");
+        tvMsg.setTextColor(Color.GREEN);
         layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         containerLayout.setOrientation(LinearLayout.VERTICAL);

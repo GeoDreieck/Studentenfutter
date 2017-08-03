@@ -67,7 +67,7 @@ public class ListViewAdapter extends BaseAdapter{
             txtFirst.setText(stringList.get(1));
             txtSecond.setText(stringList.get(3));
             spinner.setPrompt("1");
-            
+
 
             //create a list of items for the spinner.
             String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};

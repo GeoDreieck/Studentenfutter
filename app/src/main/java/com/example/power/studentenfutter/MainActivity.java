@@ -1,6 +1,7 @@
 package com.example.power.studentenfutter;
 
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
@@ -41,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         containerLayout = new LinearLayout(this);
         mainLayout = (ConstraintLayout) findViewById(R.id.cons3);
         tvMsg = new TextView(this);
+        tvMsg.setTextSize(25);
         tvMsg.setText("Fehlerhafte Eingabe");
+        tvMsg.setTextColor(Color.RED);
         layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (isClicked) {
             isClicked = false;
             popUpWindow.showAtLocation(mainLayout, Gravity.BOTTOM, 30, 30);
-            popUpWindow.update(650, 880, 400, 200);
+            popUpWindow.update(600, 800, 400, 200);
 
 
         } else {
