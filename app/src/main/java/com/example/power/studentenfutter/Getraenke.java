@@ -37,6 +37,7 @@ public class Getraenke extends AppCompatActivity {
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
     int restaurantid;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,34 +51,16 @@ public class Getraenke extends AppCompatActivity {
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
         restaurantid  = Integer.parseInt(intent.getExtras().get("restaurantid").toString());
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
 
         // Listview mit Connection zur Datenbank
         final ListView listView=(ListView)findViewById(R.id.listviewgetraenke);
-
 
         try {
             list = server_connection_handler.GetDrinkinfofromRestaurant(restaurantid);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*List<String> testlist = new ArrayList<String>();
-        List<List<String>> testlist2 = new ArrayList<List<String>>();
-
-        testlist = new ArrayList<String>();
-        testlist.add("0");
-        testlist.add("1 Euro");
-        testlist.add("platzhalter");
-        testlist.add("billiger Wein");
-        testlist.add("ende");
-        testlist2.add(testlist);
-
-        testlist.add("1");
-        testlist.add("18 Euro");
-        testlist.add("platzhalter");
-        testlist.add("teuerer Wein");
-        testlist.add("ende");
-        testlist2.add(testlist);*/
 
         ListViewAdapter adapter = new ListViewAdapter(this, list,3);
         listView.setAdapter(adapter);
@@ -103,12 +86,14 @@ public class Getraenke extends AppCompatActivity {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
     public void transportWarenkorb(View view)
     {
         ListView lv = (ListView) findViewById(R.id.listviewgetraenke);
-        final int position = lv.getPositionForView((LinearLayout)view.getParent());
+        LinearLayout ll = (LinearLayout)view.getParent();
+        final int position = lv.getPositionForView(ll);
 
         List<String> stringlist = new ArrayList<String>();
 
@@ -121,8 +106,9 @@ public class Getraenke extends AppCompatActivity {
         stringlist.add(list.get(position).get(0));
         stringlist.add(textview1.getText().toString());
         stringlist.add(textview2.getText().toString());
-        stringlist.add("DRINK");
         stringlist.add(spinner.getSelectedItem().toString());
+        stringlist.add("DRINK");
+        stringlist.add("" + user_id + "");
 
 
         warenkorb.AddtoWarenkorbList(stringlist);

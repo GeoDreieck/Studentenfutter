@@ -19,6 +19,7 @@ public class Warenkorb extends AppCompatActivity {
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +29,37 @@ public class Warenkorb extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
 
         final ListView listView=(ListView)findViewById(R.id.lv);
+
         list = warenkorb.GetWarenkorbList();
 
         double price = 0;
+        String temp = "";
+        double tempprice = 0;
         for (int i = 0; i<list.size();i++)
         {
-            price = price + Double.parseDouble(list.get(i).get(2));
+            temp = list.get(i).get(2);
+            temp = temp.trim();
+            temp = temp.substring(0, temp.length()-1);
+            temp = temp.replace(',', '.');
+            tempprice = Double.parseDouble(temp) * Double.parseDouble(list.get(i).get(3));
+            price = price + tempprice;
         }
         TextView tv  = (TextView) findViewById(R.id.tv_price);
-        tv.setText(Double.toString(price));
+        tv.setText(Double.toString(price) + "€");
 
-        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
-
+        ListViewAdapter adapter=new ListViewAdapter(this, list, 4);
         listView.setAdapter(adapter);
     }
 
-
-
     public void screenChangeBezahlungsoption(View view)
     {
-
+        Intent intent = new Intent(this, choice.class);
+        intent.putExtra("interface", server_connection_handler);
+        intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
+        startActivity(intent);
     }
 }

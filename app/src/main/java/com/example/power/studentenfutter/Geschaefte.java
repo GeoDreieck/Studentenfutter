@@ -32,6 +32,7 @@ public class Geschaefte extends AppCompatActivity {
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Geschaefte extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
 
        // Listview füllen mit Datenbank Connection
         final ListView listView=(ListView)findViewById(R.id.listviewGeschaefte);
@@ -73,6 +75,7 @@ public class Geschaefte extends AppCompatActivity {
                     intent.putExtra("interface", server_connection_handler);
                     intent.putExtra("warenkorb", warenkorb);
                     intent.putExtra("restaurantid", list.get(position).get(0));
+                    intent.putExtra("user_id", user_id);
                     startActivity(intent);
                 }
 
@@ -100,6 +103,7 @@ public class Geschaefte extends AppCompatActivity {
             Intent intent = new Intent(this, Warenkorb.class);
             intent.putExtra("interface", server_connection_handler);
             intent.putExtra("warenkorb", warenkorb);
+            intent.putExtra("user_id", user_id);
             startActivity(intent);
         }
 

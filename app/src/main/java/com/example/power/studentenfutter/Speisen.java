@@ -32,6 +32,7 @@ public class Speisen extends AppCompatActivity {
     Warenkorbinhalt warenkorb;
     List<List<String>> list  = null;
     int restaurantid;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,10 @@ public class Speisen extends AppCompatActivity {
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
         restaurantid  = Integer.parseInt(intent.getExtras().get("restaurantid").toString());
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
 
         // Listview mit Datenbank Connetion
         final ListView listView=(ListView)findViewById(R.id.listviewspeisen);
-
 
         try {
             list = server_connection_handler.GetFoodinfofromRestaurant(restaurantid);
@@ -56,8 +57,7 @@ public class Speisen extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        ListViewAdapter adapter=new ListViewAdapter(this, list,2);
+        ListViewAdapter adapter = new ListViewAdapter(this, list,2);
         listView.setAdapter(adapter);
     }
     // Parameter für den Warenkorbbtn
@@ -92,6 +92,7 @@ public class Speisen extends AppCompatActivity {
         stringlist.add(textview2.getText().toString());
         stringlist.add(spinner.getSelectedItem().toString());
         stringlist.add("FOOD");
+        stringlist.add("" + user_id + "");
 
 
         warenkorb.AddtoWarenkorbList(stringlist);
@@ -103,6 +104,7 @@ public class Speisen extends AppCompatActivity {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
 }

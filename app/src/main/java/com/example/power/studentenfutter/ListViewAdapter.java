@@ -100,7 +100,7 @@ public class ListViewAdapter extends BaseAdapter{
              txtSecond.setText(stringList.get(3));
 
              String temp;
-             if(stringList.get(8) == "0")
+             if(stringList.get(8).equals("0"))
                  temp = "Geschlossen";
              else
                  temp = stringList.get(4)+":" + stringList.get(5) +" - " + stringList.get(6) + ":" + stringList.get(7);

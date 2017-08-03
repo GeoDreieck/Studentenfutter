@@ -21,6 +21,7 @@ public class SL_Get_RFD_Infos
 		
 	}
 	
+	//Die folgenden drei Methoden rufen erst eine Methode von Datenbank_Access auf und schicken danach das Ergebnis zum Client
 	protected void Get_Restaurant_Info(Socket socket) throws SQLException, IOException
 	{
 		System.out.println("Restaurantinfos angefordert.");

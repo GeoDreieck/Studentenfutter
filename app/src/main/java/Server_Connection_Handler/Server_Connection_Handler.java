@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeoutException;
 
 public class Server_Connection_Handler implements Server_Connection_Handler_Interface
 {
@@ -23,7 +24,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
         System.out.println("Creating socket to '" + host + "' on port " + portNumber);
     }
 
-    private List<List<String>> GetInfosfromServer(final int infoindex, final int restaurant_id) throws UnknownHostException, IOException, InterruptedException
+    private List<List<String>> GetInfosfromServer(final int infoindex, final int id) throws UnknownHostException, IOException, InterruptedException
     {
     	final List<List<String>> infoarray = new ArrayList<List<String>>();
     	final CountDownLatch latch = new CountDownLatch(1);
@@ -66,7 +67,7 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                 {
 
                         pr.println(infoindex);
-                        pr.println(restaurant_id);
+                        pr.println(id);
                         pr.flush();
                 }
                 else
@@ -81,6 +82,19 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                 }
 
                 int bit = 0;
+
+                Thread thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            wait(1000 * 60 * 5);
+                        }
+                        catch(InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+
                 for(int i = -2; i < 0; i++)
                 {
                     List<String> templist = new ArrayList<String>();
@@ -120,6 +134,10 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                     }
                     if(templist.size() > 0)
                         infoarray.add(templist);
+                    if(!thread.isAlive()) {
+                        i = 0;
+                        infoarray.clear();
+                    }
                 }
                 latch.countDown();
                 try {
@@ -135,6 +153,102 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
         
         latch.await();
         return infoarray;
+    }
+
+    public int CheckLoggin(final List<String> stringlist) throws UnknownHostException, IOException, InterruptedException
+    {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final int[] intarray = new int[1];
+
+        System.out.println("Starting Socket-Thread!");
+        new Thread(new Runnable(){
+            public void run()  {
+                Socket socket = null;
+                try {
+                    System.out.println("Now trying to connect to Server...");
+                    socket = new Socket(host, portNumber);
+                    System.out.println("Server found! Socket established.");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    latch.countDown();
+                    return;
+                }
+
+
+                //infoindex als output an den Server gibt an, welche Infos angefordert werden
+                //Siehe Namen der unten stehenden Funktionen und die and diese Funktion uebergebenen Werte oder die Dokumentation als Referenz
+                OutputStream out = null;
+                PrintWriter pr = null;
+                try {
+                    out = socket.getOutputStream();
+                    pr = new PrintWriter(out);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                BufferedReader br = null;
+                try {
+                    br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                pr.println(stringlist.get(0));
+                pr.println(stringlist.get(1));
+                pr.flush();
+
+                try {
+                    out.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                int bit = 0;
+
+                Thread thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            wait(1000 * 60 * 3);
+                        }
+                        catch(InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+
+                while(true)
+                {
+                    String temp = null;
+                    try {
+                        temp = br.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(temp.length() > 0) {
+                        intarray[0] = Integer.parseInt(temp);
+                        break;
+                    }
+                    if(!thread.isAlive()) {
+                        intarray[0] = -1;
+                        break;
+                    }
+                }
+                latch.countDown();
+                try {
+                    br.close();
+                    pr.close();
+                    out.close();
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        latch.await();
+        return intarray[0];
     }
 
     public List<List<String>> GetFoodinfofromRestaurant(int restaurant_id) throws IOException
@@ -173,8 +287,9 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
         return list;
     }
 
-    public void OrderwithCredits(final List<List<String>> orderarray) throws IOException, InterruptedException {
+    public String OrderwithCredits(final List<List<String>> orderarray) throws IOException, InterruptedException {
     	final CountDownLatch latch = new CountDownLatch(1);
+        final List<String> stringList = new ArrayList<String>();
     	
         new Thread(new Runnable(){
             public void run() {
@@ -192,6 +307,13 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                     e.printStackTrace();
                 }
 
+                BufferedReader br = null;
+                try {
+                    br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 PrintWriter pr = new PrintWriter(out);
                 pr.println("Credits");
 
@@ -202,6 +324,37 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
                     pr.println("");
                 }
                 pr.flush();
+
+                Thread thread = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            wait(1000 * 60 * 3);
+                        }
+                        catch(InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+
+                while(true)
+                {
+                    String temp = null;
+                    try {
+                        temp = br.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(temp.length() > 0) {
+                        stringList.add(temp);
+                        break;
+                    }
+                    if(!thread.isAlive()) {
+                        stringList.add("Timeout: Es kam keine Nachricht nach 3 Minuten zurück!");
+                        break;
+                    }
+                }
+                latch.countDown();
 
                 try {
                     out.flush();
@@ -217,5 +370,6 @@ public class Server_Connection_Handler implements Server_Connection_Handler_Inte
 
 //      InetAddress serverAddr = InetAddress.getByName(host);
       latch.await();
+        return stringList.get(0);
     }
 }

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
+import java.io.IOException;
 import java.util.List;
 
 import Server_Connection_Handler.Server_Connection_Handler_Interface;
@@ -25,7 +26,8 @@ public class choice extends AppCompatActivity {
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
-    RelativeLayout notificationCount1;
+    int user_id;
+
     boolean isClicked = true;
     PopupWindow popUpWindow;
     LinearLayout containerLayout;
@@ -38,7 +40,6 @@ public class choice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice);
-        notificationCount1 = (RelativeLayout) findViewById(R.id.badge_layout1);
 
         // Übergabe der Parameter für das PopUp
         popUpWindow = new PopupWindow(this);
@@ -57,18 +58,7 @@ public class choice extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
-    }
-
-    // Parameter für den Warenkorbbtn
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        MenuItem item1 = menu.findItem(R.id.actionbar_item);
-        MenuItemCompat.setActionView(item1, R.layout.notification_update_count_layout);
-        notificationCount1 = (RelativeLayout) MenuItemCompat.getActionView(item1);
-        return super.onCreateOptionsMenu(menu);
-
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
     }
 
     // Button Klickmethoden
@@ -78,26 +68,21 @@ public class choice extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void screenChangecredit(View view)
-    {
+    public void screenChangecredit(View view) throws IOException, InterruptedException {
+
+        String returnstring = server_connection_handler.OrderwithCredits(warenkorb.GetWarenkorbList());
+        tvMsg.setText(returnstring);
 
         if (isClicked) {
             isClicked = false;
             popUpWindow.showAtLocation(mainLayout, Gravity.BOTTOM, 30, 30);
             popUpWindow.update(650, 880, 400, 200);
-           
+
 
         } else {
             isClicked = true;
             popUpWindow.dismiss();
         }
-    }
-    public void screenChangeWarenkorb(View view)
-    {
-        Intent intent = new Intent(this, Warenkorb.class);
-        intent.putExtra("interface", server_connection_handler);
-        intent.putExtra("warenkorb", warenkorb);
-        startActivity(intent);
     }
 
 

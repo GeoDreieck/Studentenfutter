@@ -20,6 +20,8 @@ public class Choose extends AppCompatActivity {
     // Attributes
     Server_Connection_Handler_Interface server_connection_handler;
     Warenkorbinhalt warenkorb;
+    int user_id;
+
     RelativeLayout notificationCount1;
     LinearLayout containerLayout;
     ConstraintLayout mainLayout;
@@ -36,6 +38,7 @@ public class Choose extends AppCompatActivity {
         Intent intent = getIntent();
         server_connection_handler = (Server_Connection_Handler_Interface) intent.getSerializableExtra("interface");
         warenkorb = (Warenkorbinhalt) intent.getSerializableExtra("warenkorb");
+        user_id = Integer.parseInt(intent.getExtras().get("user_id").toString());
     }
     //  Parameter für Warenkorbbtn
     @Override
@@ -55,6 +58,7 @@ public class Choose extends AppCompatActivity {
         Intent intent = new Intent(this, Warenkorb.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
 
@@ -64,6 +68,7 @@ public class Choose extends AppCompatActivity {
         Intent intent = new Intent(this, Speisen.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
     public void screenChangeGetraenke(View view)
@@ -71,6 +76,7 @@ public class Choose extends AppCompatActivity {
         Intent intent = new Intent(this, Getraenke.class);
         intent.putExtra("interface", server_connection_handler);
         intent.putExtra("warenkorb", warenkorb);
+        intent.putExtra("user_id", user_id);
         startActivity(intent);
     }
 

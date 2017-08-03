@@ -11,29 +11,39 @@ import Database_Access.*;
 public class SL_Business_Worker
 {
 	//attributes
-	SL_Payment_Handler _payment_handler;
 	Database_Access_Interface _database_access_interface;
 	OutputStream out;
 
 	public SL_Business_Worker(Database_Access_Interface database_access_interface) 
 	{
-		_payment_handler = new SL_Payment_Handler();
 		_database_access_interface = database_access_interface;
 	}
 	
 	public void Handle_Order_Credits(List<List<String>> orderlist, Socket socket) throws SQLException, IOException
 	{
 		out = socket.getOutputStream();
-		int creditsprize = 0;
+		double creditsprize = 0;
+		//Der Gesammtpreis der Bestellung wird aus den Werten in der Liste ermittelt
+		String temp;
+		
+		//Zuerst muessen die Stringpreise aus der Liste aufbereitet werden
 		for(int i = 0; i < orderlist.size(); i++)
 		{
-			creditsprize = creditsprize + Integer.parseInt(orderlist.get(i).get(3));
+			temp = orderlist.get(i).get(2);
+			temp= temp.trim();
+            temp = temp.substring(0, temp.length()-1);
+            temp = temp.replace(',', '.');
+			creditsprize = creditsprize + Double.parseDouble(orderlist.get(i).get(2));
 		}
-		Boolean result = _database_access_interface.Check_Credits(creditsprize);
+		
+		//Die aufgerufene Funktion checkt ob der User genug Credits hat und schickt ein Ergebnis zurück
+		Boolean result = _database_access_interface.Check_Credits(creditsprize, orderlist.get(0).get(5));
 		int returnedid;
+		PrintWriter pr = new PrintWriter(out);
+		
+		//Falls genug Credits vorhanden sind, bestelle
 		if(result == true)
 		{
-			PrintWriter pr = new PrintWriter(out);
 			returnedid =_database_access_interface.Write_Order(orderlist);
 			if(returnedid > 0)
 			{
@@ -41,13 +51,14 @@ public class SL_Business_Worker
 			}
 			else
 			{
-				
+				pr.println("Einer der uebergebenen Bestellungen hatte einen Fehler!");
 			}
 			pr.flush();
 		}
 		else
 		{
-			
+			pr.println("Ihr Creditstand war unzureichend.");
+			pr.flush();
 		}
 		out.flush();
 	}
